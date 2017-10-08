@@ -216,7 +216,7 @@ begin: switch (op)
 			}
 			
 			default: {
-				std::cout << "You`ve printed the wrong symbol! Please, print it agan: ";
+				std::cout << "You`ve printed the wrong symbol! Please, print it again: ";
 				std::cin >> op;
 				std::cout << std::endl;
 				goto begin;
