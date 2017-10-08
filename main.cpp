@@ -6,9 +6,9 @@ int main ()
 {
 	std::cout << "Let`s play 2048!\n" << std::endl;
 	
-	int matrix[4][4], i, j, m=0;
+	int matrix[4][4], i, j, count=1, m=0;
 	char op;
-	
+
 	for ( i = 0; i < 4; i++) {
 		for ( j = 0; j < 4; j++) {
 			matrix[i][j]=0;
@@ -45,11 +45,11 @@ sluchay:i=rand()%4;
 	
 	std::cin >> op;
 	
-	while(op == 'j' || op == 'k' || op == 'h' || op == 'l') {
+	while(count > 0) {
 		
 		std::cout << std::endl;
 		
-		switch (op)
+begin: switch (op)
 		{
 			case 'j': 
 			{
@@ -215,33 +215,41 @@ sluchay:i=rand()%4;
 				break;
 			}
 			
+			default: {
+				std::cout << "You`ve printed the wrong symbol! Please, print it agan: ";
+				std::cin >> op;
+				std::cout << std::endl;
+				goto begin;
+			}
+			
 		}
 		
 again:	i=rand()%4;
 		j=rand()%4;
-		
+
 		if (matrix[i][j] == 0) {
-			if (rand()%10 <=8) 	matrix[i][j]=2;
-			else matrix [i][j]=4;
+		if (rand()%10 <=8) 	matrix[i][j]=2;
+		else matrix [i][j]=4;
 		}
 		else goto again;
 	
-	for ( i = 0; i < 4; i++) {
+		for ( i = 0; i < 4; i++) {
 		for ( j = 0; j < 4; j++) {
-			if (matrix[i][j] == 0){
-				std::cout << "* ";
-			}
-			else {
-				std::cout << matrix[i][j] << ' ';
-			}
+		if (matrix[i][j] == 0){
+			std::cout << "* ";
 		}
+		else {
+			std::cout << matrix[i][j] << ' ';
+		}
+		}
+				
 		std::cout << std::endl;
+		}
+				
+		std::cout << "Your goals are: " << m << std::endl << "Press your letter: ";
+				
+		std::cin >> op;
 	}
-				
-	std::cout << "Your goals are: " << m << std::endl << "Press your letter: ";
-				
-	std::cin >> op;
-}
 	
 	return 0;
 }
