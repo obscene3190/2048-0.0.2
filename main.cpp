@@ -32,10 +32,10 @@ sluchay:i=rand()%4;
 	for ( i = 0; i < 4; i++) {
 		for ( j = 0; j < 4; j++) {
 			if (matrix[i][j] == 0){
-				std::cout << "* ";
+				std::cout << "*  ";
 			}
 			else {
-				std::cout << matrix[i][j] << ' ';
+				std::cout << matrix[i][j] << "  ";
 			}
 		}
 		std::cout << std::endl;
@@ -236,10 +236,10 @@ again:	i=rand()%4;
 		for ( i = 0; i < 4; i++) {
 		for ( j = 0; j < 4; j++) {
 		if (matrix[i][j] == 0){
-			std::cout << "* ";
+			std::cout << "*  ";
 		}
 		else {
-			std::cout << matrix[i][j] << ' ';
+			std::cout << matrix[i][j] << "  ";
 		}
 		}
 				
