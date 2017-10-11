@@ -4,10 +4,12 @@
 
 int main ()
 {
-	std::cout << "Let`s play 2048!\n" << std::endl;
+	std::cout << "Let`s play 2048!\n";
 	
-	int matrix[4][4], i, j, count=1, l=1, m=0;
+	int matrix[4][4], i, j, l, count=1, m=0;
 	char op;
+
+	//Îáíóëåíèå ìàññèâà
 
 	for ( i = 0; i < 4; i++) {
 		for ( j = 0; j < 4; j++) {
@@ -17,37 +19,20 @@ int main ()
 	
 	srand(time(NULL));
 	
-	for (int k=0; k<2; k++){
-sluchay:i=rand()%4;
-		j=rand()%4;
-		
-		if (matrix[i][j] == 0) {
-			if (rand()%10 <=8) 	matrix[i][j]=2;
-			else matrix [i][j]=4;
-		}
-		else goto sluchay;
-	};
+	//Ââîä ñëó÷àéíîãî çíà÷åíèå (2 èëè 4) â ñëó÷àéíóþþ ÿ÷åéêó ìàòðèöû
 	
+	i=rand()%4;
+	j=rand()%4;
 	
-	for ( i = 0; i < 4; i++) {
-		for ( j = 0; j < 4; j++) {
-			if (matrix[i][j] == 0){
-				std::cout << "*  ";
-			}
-			else {
-				std::cout << matrix[i][j] << "  ";
-			}
-		}
-		std::cout << std::endl;
-	}
+	if (rand()%10 <=8) 	matrix[i][j]=2;
+	else matrix [i][j]=4;
 	
-	std::cout << "Press your letter: ";
-	
-	std::cin >> op;
-	
-	while(l > 0) {
+	while(1) {
 		
 		std::cout << std::endl;
+		
+		/*Ïðîâåðêà óñëîâèÿ, ÷òî èãðîê ìîæåò ñäåëàòü õîä: åñëè ñóùåñòâóþò äâà ñîñåäíèõ ðàâíûõ èëè õîòÿ áû îäèí 
+		íóëåâîé ýëåìåíòû. Â ïðîòèâíîì ñëó÷àå, ïðîãðàììà âûõîäèò èç öèêëà */
 		
 		l = 0;
 		
@@ -57,12 +42,53 @@ sluchay:i=rand()%4;
 					l = 1;
 					break;
 				}
-				if (l == 1) break;
+			if (l == 1) break;
 		}
 		
 		if (l != 1) break;
 		
+		/*Äîáàâëåíèå ñëó÷àéíîãî çíà÷åíèå (2 èëè 4) â ñëó÷àéíûé íóëåâîé ýëåìåíò ìàññèâà, åñëè òàêîé èìååòñÿ.
+		Åñëè ñëó÷àéíî ñãåíåðèðîâàííàÿ ïîçèöèÿ èìååò íåíóëåâîå çíà÷åíèå, òî îïåðàöèÿ âûïîëíÿåòñÿ çàíîâî âîçâðàùåíèåì
+		ê ìåòêå again. Äëÿ ïðîâåðêè óñëîâèÿ ñëóæèò ñ÷åò÷èê count, êîòîðûé ïðèíèìàåò çíà÷åíèå 1, åñëè áûë ñîâåðøåí êîððåêòíûé
+		õîä. Äàëåå íà ýêðàí âûâîäÿòñÿ ìàòðèöà, êîëè÷åñòâî î÷êîâ è ïîëüçîâàòåëÿ ïðèãëàøàþò ñîâåðøèòü õîä. Åñëè ââåäåíûé äî ýòîãî
+		ìîìåíòà õîä ñîâåðøèòü íåâîçìîæíî, ïðîãðàììà ïðîñèò ñîâåðøèòü äðóãîé õîä.*/
+		
+		if (count == 1){
+
+			again:	i=rand()%4;
+					j=rand()%4;
+
+					if (matrix[i][j] == 0) {
+						if (rand()%10 <=8) 	matrix[i][j]=2;
+						else matrix [i][j]=4;
+						}
+					else goto again;
+	
+					for ( i = 0; i < 4; i++) {
+						for ( j = 0; j < 4; j++) {
+							if (matrix[i][j] == 0){
+								std::cout << "*  ";
+							}
+							else {
+								std::cout << matrix[i][j] << "  ";
+							}
+						}
+						std::cout << std::endl;
+					}
+				
+					std::cout << "Your goals are: " << m << std::endl << "Press your letter: ";
+					}
+		else {
+			std::cout << "You can`t make this action. Please, choose another letter: ";
+		}
+				
+		std::cin >> op;
+		
 		count = 0;
+		
+		/* Ñ ïîìîùüþ îïåðàòîðà âûáîðà ïî óñëîâèþ ïðîãðàììà âûïîëíÿåò õîä, ââåäåííûé ïîëüçîâàòåëåì. Â ñëó÷àå
+		îïèñêè ïîëüçîâàòåëåì ïðîãðàììà óêàçûâàåò, ÷òî ïîëüçîâàòåëü ââåë íåïðàâèëüíûé ñèìâîë è ïðîñèò ââåñòè
+		åãî êîððåêòíî*/
 		
 begin: switch (op)
 		{
@@ -240,49 +266,14 @@ begin: switch (op)
 			
 			default: {
 				std::cout << "You`ve printed the wrong symbol! Please, print it again: ";
-				count = 1;
 				std::cin >> op;
 				std::cout << std::endl;
 				goto begin;
 			}
-			
 		}
-		
-		if (count == 1){
-
-			again:	i=rand()%4;
-					j=rand()%4;
-
-					if (matrix[i][j] == 0) {
-						if (rand()%10 <=8) 	matrix[i][j]=2;
-						else matrix [i][j]=4;
-						}
-					else goto again;
-	
-					for ( i = 0; i < 4; i++) {
-						for ( j = 0; j < 4; j++) {
-							if (matrix[i][j] == 0){
-								std::cout << "*  ";
-							}
-							else {
-								std::cout << matrix[i][j] << "  ";
-							}
-						}
-				
-						std::cout << std::endl;
-					}
-				
-					std::cout << "Your goals are: " << m << std::endl << "Press your letter: ";
-					}
-		else {
-
-			count = 1;
-			std::cout << "You can`t make this action. Please, choose another letter: ";
-		}
-
-				
-		std::cin >> op;
 	}
+	
+	//Â ñëó÷àå îêîí÷àíèÿ èãðû ïðîãðàììà áëàãîäàðèò ïîëüçîâàòåëÿ çà èãðû è âûâîäèò êîëè÷åñòâî åãî î÷êîâ
 	
 	std::cout << "Sorry, you lose! Thanks for the good game! Your goals are: " << m;
 	
